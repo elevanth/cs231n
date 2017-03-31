@@ -1,3 +1,6 @@
 import numpy as np
-learning_rates = [1e-7:5e-5]
-print(learning_rates)
+import math
+x = np.array([[0,1]])
+print(x.shape)
+a = np.exp(x[0])
+print(a)
