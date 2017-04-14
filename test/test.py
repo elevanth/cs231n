@@ -227,3 +227,11 @@ print db_num
 _, cache = batchnorm_forward(x, gamma, beta, bn_param)
 dx, dgamma, dbeta = batchnorm_backward(dout, cache)
 print "done"
+
+
+  gamma, N, sample_mean, sample_var, eps, x, xi = cache
+  # dx =  dout * gamma * ((1-1/N)*(sample_var+eps) - (x-sample_mean)*(2*(x-sample_mean)-2*np.sum(x-sample_mean, axis=0, keepdims=True)/N)/(2*N))/(np.sqrt(sample_var+eps)*(sample_var+eps))
+  dx =  dout * gamma * ((1-1/N)*(sample_var+eps) - 0.5*(1/N*(np.sum(-2/N * \
+       (x-sample_mean),axis=0,keepdims=True)+2*(x-sample_mean))*(x-sample_mean))/(np.sqrt(sample_var+eps)*(sample_var+eps))
+  dgamma = np.sum(dout * xi, axis=0, keepdims=True)
+  dbeta = np.sum(dout, axis=0, keepdims=True)
